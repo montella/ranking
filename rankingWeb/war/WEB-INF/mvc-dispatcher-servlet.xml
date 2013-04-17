@@ -12,6 +12,9 @@
  
 	<!-- Scans the classpath of this application for @Components to deploy as beans -->
 	<context:component-scan base-package="com.dc.ranking.controller"/>
+	
+	<!-- Scans Objectify services -->
+	<bean class="com.googlecode.objectify.spring.ObjectifyFactoryBean" p:basePackage="com.dc.ranking.dao" />
  
 	<!-- Configures the @Controller programming model -->
 	<mvc:annotation-driven />
