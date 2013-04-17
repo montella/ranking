@@ -1,7 +1,7 @@
 package com.dc.ranking.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
 
 @Entity
 public class UserBean 
@@ -10,10 +10,11 @@ public class UserBean
 	/* ATRIBUTOS */
 	/* ********* */
 
+	@Id Long id;
+	
 	/**
 	 * 
 	 */
-	@Id
     private String email;	
 	
 	/**

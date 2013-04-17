@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dc.ranking.dao.UserDao;
+import com.dc.ranking.dao.impl.UserDaoImpl;
 import com.dc.ranking.model.UserBean;
+import com.googlecode.objectify.Objectify;
+import com.googlecode.objectify.ObjectifyFactory;
 
 @Controller
 public class DemoController 
@@ -25,8 +28,9 @@ public class DemoController
 	
 	private static final Logger log = Logger.getLogger(DemoController.class.getName());
 	
-	@Autowired
 	public UserDao userDao;
+	
+	@Autowired private ObjectifyFactory objectifyFactory;
 	
 	/* ================ */
 	/* MÉTODOS DE CLASE */
@@ -41,16 +45,20 @@ public class DemoController
     	int numAleatorio = (int) (Math.random()*4+1);
     	
     	UserBean userBean = new UserBean();
-    	userBean.setEmail(numAleatorio + "@gmail.com");
+    	userBean.setEmail("carlos@gmail.com");
     	userBean.setFirstName("Carlos");
     	userBean.setLastName("Córdoba");
     	userBean.setPassword("Carlos");
     	
-    	userDao.create(userBean);
+    	// Grabo
+		Objectify ofy = objectifyFactory.begin();
+		ofy.save().entity(userBean).now();
+		
+		// Recupero
+	    ofy.load().type(UserBean.class);
+	    List<UserBean> users = ofy.load().type(UserBean.class).list();		
     	
-    	List<UserBean> list = userDao.findAll();
-    	
-		mav.addObject("trenes", "Mensaje de prueba");
+		mav.addObject("users", users);
 		
 		log.info("TrenesController name: " + "Mensaje de prueba");
  
