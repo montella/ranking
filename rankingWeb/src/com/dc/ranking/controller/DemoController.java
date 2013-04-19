@@ -40,9 +40,7 @@ public class DemoController
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) 
     		throws ServletException, IOException 
     {
-    	ModelAndView mav = new ModelAndView("login");
-    	
-    	int numAleatorio = (int) (Math.random()*4+1);
+    	ModelAndView mav = new ModelAndView("demo");
     	
     	UserBean userBean = new UserBean();
     	userBean.setEmail("carlos@gmail.com");
